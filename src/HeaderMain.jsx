@@ -13,7 +13,6 @@ function HeaderMain(){
                     <h2 className="middle-header-links">CONTACT US</h2>
                 </div>
                 <div className='navlinks-container'>
-                    <img src='/public/menuicon.svg' className="menuicon"></img>
                 </div>
             </nav>
         </header>
