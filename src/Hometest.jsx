@@ -197,7 +197,7 @@ function Hometest(){
                         </div>
 
                         <div className="horizontal-scroll-card">
-                            <div><h1 className="homecard2text">HELLO</h1></div>
+                            <div><h1 className="homecard2text">FILLER</h1></div>
                         </div>
                     </div>
                 </div>
