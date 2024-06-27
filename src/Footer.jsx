@@ -4,7 +4,7 @@ function Footer () {
         <div className="footer-wrapper">
         <div className="left-footer">
             <div className="contact-me-container">
-                <h2 className="contact-me-text">Developed by Abishek Kharel</h2>
+                <h2 className="contact-me-text">Developed by vredchasing</h2>
             </div>
         </div>
         <div className="right-footer">
