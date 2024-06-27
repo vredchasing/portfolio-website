@@ -12,8 +12,6 @@ function HeaderMain(){
                     <h2 className="middle-header-links">PROJECTS</h2>
                     <h2 className="middle-header-links">CONTACT US</h2>
                 </div>
-                <div className='navlinks-container'>
-                </div>
             </nav>
         </header>
     )
