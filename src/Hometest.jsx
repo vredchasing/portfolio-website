@@ -184,7 +184,7 @@ function Hometest(){
                             <div className="about-me-container">
                                 <div className="card2-slide2-left">
                                     <p className="about-me-p">
-                                        Hi, my name is Abishek. I'm a 19 year old, self-taught fullstack developer with
+                                        Hi, my name is vredchasing. I'm a 19 year old, self-taught fullstack developer with
                                         a passion for programning and creative web design.
                                     </p>
                                     <div className=""><CustomScrollTracker2></CustomScrollTracker2></div>
