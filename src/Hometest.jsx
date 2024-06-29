@@ -23,6 +23,7 @@ function Hometest(){
 
         window.addEventListener('scroll', handleScroll);
 
+
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
@@ -131,6 +132,22 @@ function Hometest(){
 
     }
 
+    // Handle Mobile Layouts - removing and adding animations based on screen size 
+
+    const matchMediaResult = window.matchMedia('max-width: 790px')
+    const isMobileLayout = useState(null)
+    useEffect(()=>{
+
+        const handleResize = () => {
+            
+        }
+
+        window.addEventListener('resize', handleResize)
+
+        return ()=>{
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [])
 
     return(
         <div className="home-wrapper">
