@@ -1,153 +1,145 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react";
 import CustomScrollTracker from "./Components/CustomScrollTracker";
 import CustomScrollTracker2 from "./Components/CustomScrollTracker2";
-function Hometest(){
 
-    const lastScrollPosition = useRef(0)
+function Hometest() {
+    const [isMobile, setIsMobile] = useState(null);
+
+    const lastScrollPosition = useRef(0);
     const currentSlide = useRef(1);
     const horizontalSection = useRef([]);
     const snapDistance = useRef(10);
-    const scrollSectionHeight = useRef(null)
-    const scrollDistance1 = useRef(null)
-    const scrollDistance2 = useRef(null)
-    const scrollDistance3 = useRef(null)
+    const scrollSectionHeight = useRef(null);
+    const scrollDistance1 = useRef(null);
+    const scrollDistance2 = useRef(null);
+    const scrollDistance3 = useRef(null);
+    
+    const card4 = useRef(null);
+    const card4Section = useRef(null);
+    const card4Scroller = useRef(null);
+    const card4OffsetTop = useRef(null);
+    const card4Height = useRef(null);
+    const card4Slide1 = useRef(null);
+    const card4Text1Container = useRef(null);
+    const card4Text2Container = useRef(null);
+    const card4Text = useRef(null);
+    const card4Text2 = useRef(null);
+    const card4TextP1 = useRef(null);
+    const card4TextP2 = useRef(null);
+    const card4TextP3 = useRef(null);
 
     useEffect(() => {
-        horizontalSection.current = Array.from(document.querySelectorAll('.horizontal-section'));
+        const matchMediaResult = window.matchMedia("(max-width: 790px)");
 
-        const handleScroll = () => {
-            horizontalSection.current.forEach((section) => {
-                transform(section);
-            });
-        }
+        const handleResize = () => {
+            setIsMobile(matchMediaResult.matches);
+        };
+        matchMediaResult.addEventListener("change", handleResize);
 
-        window.addEventListener('scroll', handleScroll);
-
+        handleResize();
 
         return () => {
-            window.removeEventListener('scroll', handleScroll);
+            matchMediaResult.removeEventListener("change", handleResize);
         };
     }, []);
 
-    function transform(section) {
-        const sectionOffsetTop = section.parentElement.offsetTop;
-        const horizontalScroll = section.querySelector('.horizontal-scroll');
-
-        scrollSectionHeight.current = section.parentElement.clientHeight
-        scrollDistance1.current = (sectionOffsetTop)
-
-        // Calculation to determine when the scroll sections edge touches the top of the viewport to start animation
-        let scrollPercentage = ((window.scrollY - sectionOffsetTop) / window.innerHeight) * 100;
-
-        // Snap animation application logic
-        if (scrollPercentage >= 0 && window.scrollY <= (sectionOffsetTop+scrollSectionHeight.current)) {
-            if (currentSlide.current === 1 && window.scrollY >= (sectionOffsetTop+(scrollSectionHeight.current*(1/3)))) {
-                horizontalScroll.style.animation = 'slide-100 0.3s linear forwards'
-                currentSlide.current = 2;
-            } else if (currentSlide.current === 2 && window.scrollY >= (sectionOffsetTop+(scrollSectionHeight.current*(2/3)))) {
-                horizontalScroll.style.animation = 'slide-200 0.3s linear forwards'
-                currentSlide.current = 3;
-            } else if (currentSlide.current === 2 && window.scrollY <= (sectionOffsetTop+(scrollSectionHeight.current*(1/3)))) {
-                horizontalScroll.style.animation = 'slide-0 0.3s linear forwards'
-                currentSlide.current = 1;
-            } else if (currentSlide.current === 3 && window.scrollY < (sectionOffsetTop+(scrollSectionHeight.current*(2/3)))) {
-                horizontalScroll.style.animation = 'slide-100From3 0.3s linear forwards'
-                currentSlide.current = 2;
-            }
-        }
-        // Update last scroll position
-        lastScrollPosition.current = window.scrollY
-
-    }
-
-
-
-
-    // Experiences section scrolling logic
-    const card4 = useRef(null)
-    const card4Section = useRef(null)
-    const card4Scroller = useRef(null)
-    const card4OffsetTop = useRef(null)
-    const card4Height = useRef(null)
-    const card4Slide1 = useRef(null)
-    const card4Text1Container = useRef(null)
-    const card4Text2Container = useRef(null)
-    const card4Text = useRef(null)
-    const card4Text2 = useRef(null)
-    const card4TextP1 = useRef(null)
-    const card4TextP2 = useRef(null)
-    const card4TextP3 = useRef(null)
-
-    const handleScrollSec2 = () => {
-        card4Section.current.forEach((section)=>{
-            animation(section)
-        })
-    }
 
     useEffect(()=>{
-        card4Section.current = Array.from(document.querySelectorAll('.card4-scroller-wrapper'));
-        window.addEventListener('scroll', handleScrollSec2);
+        horizontalSection.current = Array.from(document.querySelectorAll(".horizontal-section"));
 
-        return ()=>{
-            window.addEventListener('scroll', handleScrollSec2)
-        }
+        const handleScroll = () => {
 
-    }, [])
+                horizontalSection.current.forEach((section) => {
+                    transform(section);
+                });
 
-    function animation (section){
-        card4.current = document.querySelector('.home-card4')
-        card4Scroller.current = section.querySelector('.card4-scroller')
-        card4Slide1.current = section.querySelector('.card4-slide1')
-        card4OffsetTop.current = section.parentElement.offsetTop;
-        card4Height.current = section.parentElement.clientHeight
-        card4Text1Container.current = section.querySelector('.card4-text-container')
-        card4Text2Container.current = section.querySelector('.card4-text-container2')
-        card4Text.current = section.querySelector('.card4-text')
-        card4TextP1.current = section.querySelector('.card4-text-animated-container')
-        card4TextP2.current = section.querySelector('.card4-text-animated-container2')
-        card4TextP3.current = section.querySelector('.card4-text-animated-container3')
+            //if (isMobile === false) {
+            //  horizontalSection.current.forEach((section) => {
+            //        transform(section);
+            //    });
+            //}
+        };
 
-        if(window.scrollY>=card4OffsetTop.current && window.scrollY<=(card4OffsetTop.current+card4Height.current)){
-            if(window.scrollY >= card4OffsetTop.current){
-                card4TextP1.current.style.animation = 'fadeAndScaleIn 0.5s ease-in forwards'
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+
+        function transform(section) {
+            const sectionOffsetTop = section.parentElement.offsetTop;
+            const horizontalScroll = section.querySelector(".horizontal-scroll");
+
+            scrollSectionHeight.current = section.parentElement.clientHeight;
+            scrollDistance1.current = sectionOffsetTop;
+
+            let scrollPercentage = ((window.scrollY - sectionOffsetTop) / window.innerHeight) * 100;
+
+            if (scrollPercentage >= 0 && window.scrollY <= sectionOffsetTop + scrollSectionHeight.current) {
+                if (currentSlide.current === 1 && window.scrollY >= sectionOffsetTop + scrollSectionHeight.current * (1 / 3)) {
+                    horizontalScroll.style.animation = "slide-100 0.3s linear forwards";
+                    currentSlide.current = 2;
+                } else if (currentSlide.current === 2 && window.scrollY >= sectionOffsetTop + scrollSectionHeight.current * (2 / 3)) {
+                    horizontalScroll.style.animation = "slide-200 0.3s linear forwards";
+                    currentSlide.current = 3;
+                } else if (currentSlide.current === 2 && window.scrollY <= sectionOffsetTop + scrollSectionHeight.current * (1 / 3)) {
+                    horizontalScroll.style.animation = "slide-0 0.3s linear forwards";
+                    currentSlide.current = 1;
+                } else if (currentSlide.current === 3 && window.scrollY < sectionOffsetTop + scrollSectionHeight.current * (2 / 3)) {
+                    horizontalScroll.style.animation = "slide-100From3 0.3s linear forwards";
+                    currentSlide.current = 2;
+                }
             }
-            if(window.scrollY >= card4OffsetTop.current+(card4Height.current*(1/8))){
-                card4TextP2.current.style.animation = 'fadeAndScaleIn 0.5s ease-in forwards'
+
+            lastScrollPosition.current = window.scrollY;
+        }
+    }, [isMobile])
+
+    useEffect(() => {
+        card4Section.current = Array.from(document.querySelectorAll(".card4-scroller-wrapper"));
+
+        const handleScrollSec2 = () => {
+            if (isMobile === false) {
+                card4Section.current.forEach((section) => {
+                    animation(section);
+                });
             }
-            if(window.scrollY >= card4OffsetTop.current+(card4Height.current*(2/8))){
-                card4TextP3.current.style.animation = 'fadeAndScaleIn 0.5s ease-in forwards'
+        };
+
+        window.addEventListener("scroll", handleScrollSec2);
+
+        return () => {
+            window.removeEventListener("scroll", handleScrollSec2);
+        };
+
+        function animation(section) {
+            card4.current = document.querySelector(".home-card4");
+            card4Scroller.current = section.querySelector(".card4-scroller");
+            card4Slide1.current = section.querySelector(".card4-slide1");
+            card4OffsetTop.current = section.parentElement.offsetTop;
+            card4Height.current = section.parentElement.clientHeight;
+            card4Text1Container.current = section.querySelector(".card4-text-container");
+            card4Text2Container.current = section.querySelector(".card4-text-container2");
+            card4Text.current = section.querySelector(".card4-text");
+            card4TextP1.current = section.querySelector(".card4-text-animated-container");
+            card4TextP2.current = section.querySelector(".card4-text-animated-container2");
+            card4TextP3.current = section.querySelector(".card4-text-animated-container3");
+
+
+            if (window.scrollY >= card4OffsetTop.current && window.scrollY <= card4OffsetTop.current + card4Height.current) {
+                if (window.scrollY >= card4OffsetTop.current + card4Height.current * (4 / 7)) {
+                    card4Slide1.current.style.animation = "dim 0.4s ease-out forwards";
+                    card4Scroller.current.style.animation = "slide-100 0.5s ease-in forwards";
+                }
             }
-            if(window.scrollY >= card4OffsetTop.current+(card4Height.current*(4/7))){
-                card4Slide1.current.style.animation = 'dim 0.4s ease-out forwards'
-                card4Scroller.current.style.animation = 'slide-100 0.5s ease-in forwards'
+            if (window.scrollY > card4OffsetTop.current + card4Height.current) {
+                card4.current.style.height = "100vh";
+                card4.current.style.position = "relative";
+                card4Section.current.style.height = "100vh";
+                card4Section.current.style.position = "relative";
             }
         }
-        if(window.scrollY > (card4OffsetTop.current+card4Height.current)){
-            card4.current.style.height = '100vh'
-            card4.current.style.position = 'relative'
-            card4Section.current.style.height = '100vh'
-            card4Section.current.style.position = 'relative'
-        }
-
-
-    }
-
-    // Handle Mobile Layouts - removing and adding animations based on screen size 
-
-    const matchMediaResult = window.matchMedia('max-width: 790px')
-    const isMobileLayout = useState(null)
-    useEffect(()=>{
-
-        const handleResize = () => {
-            
-        }
-
-        window.addEventListener('resize', handleResize)
-
-        return ()=>{
-            window.removeEventListener('resize', handleResize)
-        }
-    }, [])
+    }, [isMobile]);
 
     return(
         <div className="home-wrapper">
@@ -197,24 +189,33 @@ function Hometest(){
                             <div className="custom-scroller-wrapper"><CustomScrollTracker></CustomScrollTracker></div>
                         </div>
 
-                        <div className="horizontal-scroll-card-slide1">
+                        <div className="horizontal-scroll-card-slide2">
                             <div className="about-me-container">
                                 <div className="card2-slide2-left">
-                                    <p className="about-me-p">
-                                        Hi, my name is vredchasing. I'm a 19 year old, self-taught fullstack developer with
-                                        a passion for programning and creative web design.
-                                    </p>
-                                    <div className=""><CustomScrollTracker2></CustomScrollTracker2></div>
+                                    <div className="card2-slide2-p-container">
+                                        <p className="about-me-p">
+                                            Hi, my name is vredchasing. I'm a 19 year old, self-taught fullstack developer with
+                                            a passion for programning and creative web design.
+                                        </p>
+                                    </div>
+                                    <div className="custom-scroller2-notmobile-wrapper"><CustomScrollTracker2></CustomScrollTracker2></div>
                                 </div>
                                 <div className="card2-slide2-right">
-                                    <img src="mt_everest2.webp" className="homehorizontalgallery"></img>
-                                    <p className="slide2-img-caption">I was born in Nepal, home of Mt. Everest</p>
+                                    <div className="card2-slide2-img-container">
+                                        <img src="mt_everest2.webp" className="homehorizontalgallery"></img>
+                                    </div>
+                                    <p className="slide2-img-caption">
+                                        I was born in Nepal, home of Mt. Everest
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="horizontal-scroll-card">
-                            <div><h1 className="homecard2text">FILLER</h1></div>
+                        <div className="horizontal-scroll-card-slide3">
+                            <div>
+                                <p className="about-me-p">I'm a Christian, and many of my values and what defines me as a person is based on my beliefs.</p>
+                                <p className="about-me-p">I have a wide range of hobbies ranging from soccer to PC gaming, to chess.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -230,38 +231,41 @@ function Hometest(){
                         <button className="learn-more-btn">Learn More.</button>
                     </div>
                     <div className="infinite-scroller">
-                        <div className="infinite-scroller-contents">
-                            <img className='infinite-scroller-img-html' src='html_logo.svg'></img>
-                            <img className='infinite-scroller-img-css' src='css_logo.png'></img>
-                            <img className='infinite-scroller-img' src='javascript_logo.png'></img>
-                            <img className='infinite-scroller-img-python' src='python_logo.png'></img>
-                            <img className='infinite-scroller-img' src='react_logo.png'></img>
-                            <img className='infinite-scroller-img-node' src='node_logo.png'></img>
-                            <div className="infinite-scroller-expresslogo">Express</div>
-                            <img className='infinite-scroller-img-mongo' src='mongo_db.png'></img>
-                            <img className="infinite-scroller-img-git" src='git_logo.png'></img>
-                        </div>
-                        <div className="infinite-scroller-contents">
-                            <img className='infinite-scroller-img-html' src='html_logo.svg'></img>
-                            <img className='infinite-scroller-img-css' src='css_logo.png'></img>
-                            <img className='infinite-scroller-img' src='javascript_logo.png'></img>
-                            <img className='infinite-scroller-img-python' src='python_logo.png'></img>
-                            <img className='infinite-scroller-img' src='react_logo.png'></img>
-                            <img className='infinite-scroller-img-node' src='node_logo.png'></img>
-                            <div className="infinite-scroller-expresslogo">Express</div>
-                            <img className='infinite-scroller-img-mongo' src='mongo_db.png'></img>
-                            <img className="infinite-scroller-img-git" src='git_logo.png'></img>
-                        </div>
-                        <div className="infinite-scroller-contents">
-                            <img className='infinite-scroller-img-html' src='html_logo.svg'></img>
-                            <img className='infinite-scroller-img-css' src='css_logo.png'></img>
-                            <img className='infinite-scroller-img' src='javascript_logo.png'></img>
-                            <img className='infinite-scroller-img-python' src='python_logo.png'></img>
-                            <img className='infinite-scroller-img' src='react_logo.png'></img>
-                            <img className='infinite-scroller-img-node' src='node_logo.png'></img>
-                            <div className="infinite-scroller-expresslogo">Express</div>
-                            <img className='infinite-scroller-img-mongo' src='mongo_db.png'></img>
-                            <img className="infinite-scroller-img-git" src='git_logo.png'></img>
+                        <div className="infinite-scroller-contents-container">
+                            <div className="infinite-scroller-contents">
+                                <img className='infinite-scroller-img-html' src='html_logo.svg'></img>
+                                <img className='infinite-scroller-img-css' src='css_logo.png'></img>
+                                <img className='infinite-scroller-img' src='javascript_logo.png'></img>
+                                <img className='infinite-scroller-img-python' src='python_logo.png'></img>
+                                <img className='infinite-scroller-img' src='react_logo.png'></img>
+                                <img className='infinite-scroller-img-node' src='node_logo.png'></img>
+                                <div className="infinite-scroller-expresslogo">Express</div>
+                                <img className='infinite-scroller-img-mongo' src='mongo_db.png'></img>
+                                <img className="infinite-scroller-img-git" src='git_logo.png'></img>
+                            </div>
+                            <div className="infinite-scroller-contents">
+                                <img className='infinite-scroller-img-html' src='html_logo.svg'></img>
+                                <img className='infinite-scroller-img-css' src='css_logo.png'></img>
+                                <img className='infinite-scroller-img' src='javascript_logo.png'></img>
+                                <img className='infinite-scroller-img-python' src='python_logo.png'></img>
+                                <img className='infinite-scroller-img' src='react_logo.png'></img>
+                                <img className='infinite-scroller-img-node' src='node_logo.png'></img>
+                                <div className="infinite-scroller-expresslogo">Express</div>
+                                <img className='infinite-scroller-img-mongo' src='mongo_db.png'></img>
+                                <img className="infinite-scroller-img-git" src='git_logo.png'></img>
+                            </div>
+                            <div className="infinite-scroller-contents">
+                                <img className='infinite-scroller-img-html' src='html_logo.svg'></img>
+                                <img className='infinite-scroller-img-css' src='css_logo.png'></img>
+                                <img className='infinite-scroller-img' src='javascript_logo.png'></img>
+                                <img className='infinite-scroller-img-python' src='python_logo.png'></img>
+                                <img className='infinite-scroller-img' src='react_logo.png'></img>
+                                <img className='infinite-scroller-img-node' src='node_logo.png'></img>
+                                <div className="infinite-scroller-expresslogo">Express</div>
+                                <img className='infinite-scroller-img-mongo' src='mongo_db.png'></img>
+                                <img className="infinite-scroller-img-git" src='git_logo.png'></img>
+                            </div>
+
                         </div>
                     </div>
                 </div>

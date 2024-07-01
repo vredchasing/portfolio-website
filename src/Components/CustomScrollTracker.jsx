@@ -43,7 +43,6 @@ function CustomScrollTracker (){
                 scrollTrackerFiller.current.style.transform = `translateX(${percentage.current}%)`
             }
         }
-        console.log("hello",percentage.current)
     }
     return(
         <>
