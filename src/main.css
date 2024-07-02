@@ -144,9 +144,6 @@ body::-webkit-scrollbar {
   color: transparent  ;
   font-family: "Archivo Black";
   font-size: 6vw;
-  background-image: url('hometextbackground.webp');
-  background-size: 700px;
-  background-clip: text;
   width: 100%;
   margin-bottom: 0px;
 }
