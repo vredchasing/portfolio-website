@@ -141,7 +141,7 @@ body::-webkit-scrollbar {
   display: flex;
   z-index: 2;
   justify-content: center;
-  color: transparent  ;
+  color: white  ;
   font-family: "Archivo Black";
   font-size: 6vw;
   width: 100%;
